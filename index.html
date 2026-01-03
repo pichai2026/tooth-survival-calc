@@ -3,50 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tooth Survival Calculator</title>
+    <title>Tooth Survival Calculator - Loei Hospital</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Sarabun', sans-serif;
-            background-color: #f0f2f5;
-        }
-        .main-card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        .header-bg {
-            background: linear-gradient(135deg, #00b09b, #96c93d); /* Medical Green Gradient */
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-        }
-        .result-box {
-            background-color: #e8f5e9;
-            border: 2px solid #a5d6a7;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            margin-top: 20px;
-            display: none; /* ซ่อนไว้ก่อน */
-        }
-        .btn-calc {
-            background-color: #00b09b;
-            border: none;
-            padding: 12px;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-        .btn-calc:hover {
-            background-color: #008a7a;
-            transform: translateY(-2px);
-        }
-        .form-label {
-            font-weight: 600;
-            color: #444;
-        }
+        body { font-family: 'Sarabun', sans-serif; background-color: #f0f2f5; }
+        .main-card { border: none; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; }
+        .header-bg { background: linear-gradient(135deg, #00b09b, #96c93d); color: white; padding: 30px 20px; text-align: center; }
+        .result-box { background-color: #fff; border-radius: 10px; padding: 20px; text-align: center; margin-top: 20px; display: none; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .btn-calc { background-color: #00b09b; border: none; padding: 12px; font-size: 1.1rem; color: white; transition: all 0.3s; }
+        .btn-calc:hover { background-color: #008a7a; transform: translateY(-2px); }
+        .advice-box { text-align: left; margin-top: 15px; padding: 15px; border-radius: 8px; font-size: 0.95rem; border-left: 5px solid; }
     </style>
 </head>
 <body>
@@ -57,26 +24,25 @@
             
             <div class="card main-card">
                 <div class="header-bg">
-                    <h3>🦷 Tooth Survival Calculator</h3>
-                    <p class="mb-0 small">Based on Weibull Regression Model (Loei Hospital)</p>
+                    <h3>🦷 โปรแกรมพยากรณ์การอยู่รอดของฟัน</h3>
+                    <h5 class="fw-light">โรงพยาบาลเลย (Loei Hospital)</h5>
+                    <p class="mb-0 small opacity-75">Tooth Survival Calculator based on Weibull Regression Model</p>
                 </div>
 
                 <div class="card-body p-4">
                     <form id="calcForm">
-                        
                         <div class="mb-4">
-                            <label class="form-label">1. Age of Patient (อายุผู้ป่วย)</label>
+                            <label class="form-label fw-bold">1. Age of Patient (อายุผู้ป่วย)</label>
                             <div class="btn-group w-100" role="group">
                                 <input type="radio" class="btn-check" name="age" id="ageLe60" value="0" checked>
                                 <label class="btn btn-outline-secondary" for="ageLe60">≤ 60 Years</label>
-
                                 <input type="radio" class="btn-check" name="age" id="ageGt60" value="1">
                                 <label class="btn btn-outline-secondary" for="ageGt60">> 60 Years</label>
                             </div>
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label">2. Periapical Lesion (ขนาดรอยโรค)</label>
+                            <label class="form-label fw-bold">2. Periapical Lesion (ขนาดรอยโรค)</label>
                             <select class="form-select" id="lesion" required>
                                 <option value="0">No Lesion (ไม่มีรอยโรค)</option>
                                 <option value="1">Lesion < 5 mm (ขนาดเล็ก)</option>
@@ -85,7 +51,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label">3. Restoration (การบูรณะ)</label>
+                            <label class="form-label fw-bold">3. Restoration (การบูรณะ)</label>
                             <div class="form-check form-switch p-0">
                                 <div class="d-flex align-items-center justify-content-between border rounded p-2 px-3">
                                     <label class="form-check-label" for="crown">With Crown (ใส่ครอบฟัน)</label>
@@ -95,7 +61,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label">4. Time Prediction (ระยะเวลาพยากรณ์)</label>
+                            <label class="form-label fw-bold">4. Time Prediction (ระยะเวลาพยากรณ์)</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" id="timeMonths" value="60" min="1">
                                 <span class="input-group-text">Months (เดือน)</span>
@@ -103,24 +69,29 @@
                             <div class="form-text">Example: 1 year = 12 months, 5 years = 60 months</div>
                         </div>
 
-                        <button type="button" class="btn btn-primary w-100 btn-calc shadow-sm" onclick="calculateSurvival()">
-                            Calculate Survival Probability
+                        <button type="button" class="btn btn-calc w-100 shadow-sm" onclick="calculateSurvival()">
+                            คำนวณโอกาสอยู่รอดของฟัน (Calculate)
                         </button>
-
                     </form>
 
                     <div id="resultArea" class="result-box">
-                        <h5 class="text-muted mb-2">Survival Probability at <span id="displayTime">0</span> Months</h5>
-                        <h1 class="display-4 fw-bold text-success" id="resultPercent">0%</h1>
-                        <div class="progress mt-3" style="height: 10px;">
-                            <div id="progressBar" class="progress-bar bg-success" role="progressbar" style="width: 0%"></div>
+                        <h6 class="text-muted">Survival Probability at <span id="displayTime">0</span> Months</h6>
+                        <h1 class="display-4 fw-bold" id="resultPercent">0%</h1>
+                        
+                        <div class="progress mt-2 mb-3" style="height: 10px;">
+                            <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
                         </div>
+
+                        <div id="adviceContent" class="advice-box alert-light">
+                            </div>
                     </div>
 
                     <hr class="my-4">
-                    <div class="text-muted small" style="font-size: 0.75rem;">
-                        <p class="mb-1"><strong>Disclaimer:</strong> This tool is a statistical estimation based on historical data. It does not guarantee individual treatment outcomes and should not replace clinical judgment.</p>
-                        <p class="mb-0"><strong>Developed by:</strong> Wannee Sirisak & Pichai Bunmasri, Loei Hospital.</p>
+                    <div class="text-muted small" style="font-size: 0.8rem;">
+                        <p class="mb-2">
+                            <strong>ข้อควรระวัง (Disclaimer):</strong> เครื่องมือนี้เป็นการประมาณการทางสถิติจากข้อมูลย้อนหลัง ผลลัพธ์ที่ได้แสดงถึงความน่าจะเป็นเท่านั้น ไม่สามารถรับประกันผลการรักษาในผู้ป่วยรายบุคคลได้ และไม่สามารถทดแทนดุลยพินิจทางคลินิกของทันตแพทย์
+                        </p>
+                        <p class="mb-0"><strong>Developed by:</strong> Pichai Bunmasri & Research Team, Loei Hospital.</p>
                     </div>
                 </div>
             </div>
@@ -131,79 +102,79 @@
 
 <script>
     function calculateSurvival() {
-        // 1. Get Values
-        // Age: Check which radio is selected
-        let ageVal = document.querySelector('input[name="age"]:checked').value;
-        ageVal = parseInt(ageVal); // 0 or 1
-
-        // Lesion
-        let lesionVal = parseInt(document.getElementById('lesion').value); // 0, 1, or 2
-
-        // Crown
+        let ageVal = parseInt(document.querySelector('input[name="age"]:checked').value);
+        let lesionVal = parseInt(document.getElementById('lesion').value);
         let crownVal = document.getElementById('crown').checked ? 1 : 0;
-
-        // Time
         let timeVal = parseFloat(document.getElementById('timeMonths').value);
 
-        if (isNaN(timeVal) || timeVal <= 0) {
-            alert("Please enter a valid time (months).");
-            return;
-        }
+        if (isNaN(timeVal) || timeVal <= 0) { alert("Please enter a valid time."); return; }
 
-        // 2. Set Coefficients (5 Decimal Precision)
         const CONSTANT = -7.51545;
-        const B_AGE = 0.85500;     // Age > 60
-        const B_L1 = 0.82494;      // Lesion < 5mm
-        const B_L2 = 0.96743;      // Lesion > 5mm
-        const B_CROWN = -1.13254;  // Crown
-        const P_SHAPE = 1.19280;   // Shape parameter
+        const B_AGE = 0.85500;
+        const B_L1 = 0.82494;
+        const B_L2 = 0.96743;
+        const B_CROWN = -1.13254;
+        const P_SHAPE = 1.19280;
 
-        // 3. Map Lesion Variables (Dummy Variables)
-        let L1 = 0; // < 5mm
-        let L2 = 0; // > 5mm
+        let L1 = (lesionVal === 1) ? 1 : 0;
+        let L2 = (lesionVal === 2) ? 1 : 0;
 
-        if (lesionVal === 1) { L1 = 1; }
-        if (lesionVal === 2) { L2 = 1; }
-        // if lesionVal === 0, both remain 0 (Reference group)
-
-        // 4. Calculate Linear Predictor (LP)
-        // LP = Constant + (B_Age * Age) + (B_L1 * L1) + (B_L2 * L2) + (B_Crown * Crown)
         let LP = CONSTANT + (B_AGE * ageVal) + (B_L1 * L1) + (B_L2 * L2) + (B_CROWN * crownVal);
-
-        // 5. Calculate Weibull Survival Function
-        // S(t) = exp( -exp(LP) * t^p )
-        
         let lambda = Math.exp(LP);
         let timeFactor = Math.pow(timeVal, P_SHAPE);
-        
-        // Final Formula
         let survivalProb = Math.exp( -lambda * timeFactor );
-
-        // Convert to Percentage
         let percent = (survivalProb * 100).toFixed(2);
 
-        // 6. Update UI
+        // Update Display
         document.getElementById('displayTime').innerText = timeVal;
         document.getElementById('resultPercent').innerText = percent + "%";
         document.getElementById('progressBar').style.width = percent + "%";
-        
-        // Change color based on result
+        document.getElementById('resultArea').style.display = 'block';
+
+        // Color & Advice Logic
         let resultEl = document.getElementById('resultPercent');
         let barEl = document.getElementById('progressBar');
-        
-        if(survivalProb >= 0.80) {
-            resultEl.className = "display-4 fw-bold text-success"; // Green
-            barEl.className = "progress-bar bg-success";
-        } else if (survivalProb >= 0.50) {
-            resultEl.className = "display-4 fw-bold text-warning"; // Yellow/Orange
-            barEl.className = "progress-bar bg-warning";
-        } else {
-            resultEl.className = "display-4 fw-bold text-danger"; // Red
-            barEl.className = "progress-bar bg-danger";
-        }
+        let adviceBox = document.getElementById('adviceContent');
+        let adviceText = "";
 
-        // Show result box
-        document.getElementById('resultArea').style.display = 'block';
+        if(survivalProb >= 0.80) {
+            // GREEN ZONE
+            resultEl.className = "display-4 fw-bold text-success";
+            barEl.className = "progress-bar bg-success";
+            adviceBox.className = "advice-box alert alert-success"; 
+            adviceText = `
+                <strong>✅ Good Prognosis (พยากรณ์โรคดี):</strong><br>
+                <ul>
+                    <li>ความเสี่ยงต่ำ คาดการณ์ผลสำเร็จของการรักษาสูง</li>
+                    <li>แนะนำผู้ป่วยให้ดูแลความสะอาดช่องปากตามปกติ (Routine Home Care)</li>
+                    <li>นัดตรวจติดตามอาการ (Recall) ทุก 6-12 เดือน</li>
+                </ul>`;
+        } else if (survivalProb >= 0.50) {
+            // YELLOW ZONE
+            resultEl.className = "display-4 fw-bold text-warning";
+            barEl.className = "progress-bar bg-warning";
+            adviceBox.className = "advice-box alert alert-warning"; 
+            adviceText = `
+                <strong>⚠️ Guarded Prognosis (พยากรณ์โรคปานกลาง):</strong><br>
+                <ul>
+                    <li>มีความเสี่ยงปานกลาง ควรเฝ้าระวัง</li>
+                    <li>หากยังไม่บูรณะด้วยครอบฟัน <strong>แนะนำให้ทำทันที</strong> เพื่อเพิ่มโอกาสรอด</li>
+                    <li>นัดตรวจติดตามอาการถี่ขึ้น (ทุก 3-6 เดือน) พร้อมประเมินภาพรังสี</li>
+                </ul>`;
+        } else {
+            // RED ZONE
+            resultEl.className = "display-4 fw-bold text-danger";
+            barEl.className = "progress-bar bg-danger";
+            adviceBox.className = "advice-box alert alert-danger"; 
+            adviceText = `
+                <strong>⛔ Poor Prognosis (พยากรณ์โรคมีความเสี่ยงสูง):</strong><br>
+                <ul>
+                    <li>โอกาสสูญเสียฟันสูงในระยะเวลาที่กำหนด</li>
+                    <li>ควรแจ้งผู้ป่วยให้ทราบถึงความเสี่ยงและแผนการรักษาทางเลือก (เช่น รากเทียม) หากการรักษาล้มเหลว</li>
+                    <li>พิจารณาประเมินซ้ำเพื่อรักษาเพิ่มเติม (Retreatment/Surgery)</li>
+                </ul>`;
+        }
+        adviceBox.innerHTML = adviceText;
     }
 </script>
 
